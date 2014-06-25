@@ -1,13 +1,13 @@
-{% from "postgres/map.jinja" import postgres with context %}
+{% set postgres = pillar.get('postgres', {}) %}
 
-postgresql:
+postgresql-server:
   pkg:
     - installed
-    - name: {{ postgres.pkg }}
+    - name: {{ postgres.get('pkg') }}
   service:
     - running
     - enable: true
-    - name: {{ postgres.service }}
+    - name: {{ postgres.get('service') }}
     - require:
-      - pkg: {{ postgres.pkg }}
+      - pkg: {{ postgres.get('pkg') }}
 
